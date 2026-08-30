@@ -1,0 +1,68 @@
+:root {
+  --crm-navy: var(--c-nav-bg, #0f1729);
+  --crm-rail: var(--c-app-bg, #0a1020);
+  --crm-blue: var(--c-accent);
+  --crm-blue-2: var(--c-accent-hover);
+  --crm-blue-dark: var(--c-accent-soft);
+  --crm-blue-light: var(--c-on-accent-soft);
+  --crm-bg: var(--c-app-bg);
+  --crm-line: var(--c-line);
+  --crm-text: var(--c-text);
+  --crm-muted: var(--c-muted);
+  --crm-dim: var(--c-dim);
+  --crm-side-w: 210px;
+  --crm-header-h: 52px;
+
+  /* Escala base 4px — igual à dos design systems dos Top 5 (ver INVESTIGACAO/) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s8: 32px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family:
+    'Plus Jakarta Sans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: var(--c-surface);
+  color: var(--crm-text);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ── Placeholders ──
+   Um placeholder deve parecer diferente de um valor escrito, mas continuar
+   legível. A cor por omissão do browser dava 2,5:1 no tema claro — abaixo do
+   que se lê sem esforço. `--c-muted` é o tom mais escuro que ainda se distingue
+   de texto real. */
+::placeholder {
+  color: var(--c-muted);
+  opacity: 1; /* Firefox aplica opacidade própria por omissão */
+}

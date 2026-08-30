@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // O build de produção não leva testes nem ficheiros de apoio a testes.
+    "declaration": false,
+    "declarationMap": false
+  },
+  "exclude": ["node_modules", "src/**/*.test.ts", "src/test/**"]
+}

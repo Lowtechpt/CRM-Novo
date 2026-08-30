@@ -1,0 +1,526 @@
+/* ═══ LAYOUT ═══ */
+.crm-layout.side-collapsed {
+  --crm-side-w: 56px;
+}
+.crm-layout {
+  display: grid;
+  grid-template-columns: var(--crm-side-w) minmax(0, 1fr);
+  /* `zoom` escala o conteúdo depois de o `vh` ser resolvido, por isso a altura
+     tem de ser dividida pela escala para o resultado voltar a dar o ecrã todo. */
+  zoom: var(--c-escala);
+  height: calc(100vh / var(--c-escala));
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--crm-navy) 0,
+    var(--crm-navy) var(--crm-side-w),
+    var(--c-surface) var(--crm-side-w)
+  );
+}
+
+/* ═══ SIDEBAR — Site Map agrupado (padrão Dynamics) ═══ */
+.crm-sidebar {
+  background: var(--crm-navy);
+  color: var(--c-nav-text);
+  display: flex;
+  flex-direction: column;
+  padding: var(--s3) var(--s2);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.crm-sidebar.collapsed {
+  padding: var(--s3) 6px;
+}
+
+.crm-side-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s1) var(--s1) var(--s4);
+  position: relative;
+}
+.crm-side-brand-txt {
+  min-width: 0;
+  flex: 1;
+}
+.crm-side-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  display: grid;
+  place-items: center;
+  /* 10px em vez de 11: a marca passou de duas para três letras e, a 11px,
+     encostava às bordas do quadrado de 32px. */
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.crm-side-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-fixed-on-dark);
+  white-space: nowrap;
+}
+.crm-side-sub {
+  font-size: 10.5px;
+  color: var(--c-dim);
+  white-space: nowrap;
+}
+.crm-side-collapse {
+  background: transparent;
+  border: none;
+  color: var(--c-dim);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 2px 4px;
+  line-height: 1;
+}
+.crm-side-collapse:hover {
+  color: var(--c-nav-text-active);
+}
+.crm-sidebar.collapsed .crm-side-collapse {
+  position: absolute;
+  right: -2px;
+  top: 34px;
+}
+
+.crm-side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.crm-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.crm-nav-section {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--c-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 var(--s2) 6px;
+}
+
+.crm-nav-item {
+  width: 100%;
+  height: 34px;
+  min-height: 34px;
+  padding: 0 var(--s2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  color: var(--c-nav-text);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.crm-sidebar.collapsed .crm-nav-item {
+  justify-content: center;
+  padding: 0;
+}
+.crm-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--c-nav-text-active);
+}
+.crm-nav-item.active {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  font-weight: 600;
+}
+.crm-nav-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.crm-nav-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crm-side-footer {
+  margin-top: auto;
+  padding-top: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.crm-side-btn {
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--c-nav-text);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 11.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.crm-side-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--c-nav-text-active);
+}
+
+/* ═══ CONTEÚDO ═══ */
+.crm-content {
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.crm-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══ VIEW BAR — vistas guardadas (padrão HubSpot) ═══ */
+.crm-viewbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: 0 var(--s5);
+  background: var(--c-surface);
+  border-bottom: 0.5px solid var(--crm-line);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.crm-viewbar-tabs {
+  display: flex;
+  gap: 2px;
+}
+.crm-viewtab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px var(--s3);
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--crm-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.crm-viewtab:hover {
+  color: var(--crm-text);
+}
+.crm-viewtab.active {
+  color: var(--crm-blue);
+  border-bottom-color: var(--crm-blue);
+  font-weight: 600;
+}
+.crm-viewtab-count {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--crm-bg);
+  color: var(--crm-muted);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+.crm-viewtab.active .crm-viewtab-count {
+  background: var(--c-accent-soft);
+  color: var(--crm-blue);
+}
+
+.crm-viewbar-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex-shrink: 0;
+}
+.crm-viewbar-total {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+  white-space: nowrap;
+}
+.crm-viewbar-select {
+  border: 0.5px solid var(--crm-line);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 11.5px;
+  color: var(--crm-text);
+  background: var(--c-surface);
+  outline: none;
+}
+.crm-seg {
+  display: flex;
+  gap: 2px;
+  background: var(--crm-bg);
+  border-radius: 7px;
+  padding: 2px;
+}
+.crm-seg button {
+  border: none;
+  background: transparent;
+  border-radius: 5px;
+  padding: 4px 7px;
+  cursor: pointer;
+  color: var(--crm-muted);
+  display: grid;
+  place-items: center;
+}
+.crm-seg button.active {
+  background: var(--c-surface);
+  color: var(--crm-blue);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+}
+
+/* ═══ REGISTO EM 3 COLUNAS (padrão HubSpot/Salesforce, layout.md §1-2) ═══ */
+.crm-record {
+  display: grid;
+  /* Conteúdo da tab ocupa tudo; Associações numa coluna fixa à direita. */
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.crm-record-col {
+  overflow-y: auto;
+  padding: var(--s5);
+  min-width: 0;
+}
+.crm-record-col.rel {
+  padding: var(--s5) var(--s4);
+}
+.crm-record-col.main {
+  background: var(--c-surface);
+  padding: var(--s6);
+}
+.crm-record-col.rel {
+  background: var(--crm-bg);
+  border-left: 0.5px solid var(--crm-line);
+}
+.crm-record-coltitle {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: var(--s3);
+}
+
+@media (max-width: 1150px) {
+  .crm-record {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crm-record-col.rel {
+    display: none;
+  }
+}
+
+/* ═══ HEADER GLOBAL (padrão dos 5 líderes) ═══ */
+.crm-header {
+  height: var(--crm-header-h);
+  min-height: var(--crm-header-h);
+  background: var(--c-surface);
+  border-bottom: 0.5px solid var(--crm-line);
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: 0 var(--s5);
+  flex-shrink: 0;
+}
+.crm-header-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--crm-text);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.crm-header-search {
+  flex: 1;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background: var(--crm-bg);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 8px;
+  padding: 7px var(--s3);
+  /* --c-muted e não --c-dim: como texto de um botão, tem de se ler.
+     Com --c-dim ficava a 2,5:1 no tema claro. */
+  color: var(--c-muted);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.crm-header-search:hover {
+  border-color: var(--c-line);
+  background: var(--c-surface);
+}
+.crm-header-search-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.crm-kbd {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 5px;
+  padding: 2px 6px;
+  color: var(--crm-muted);
+  font-family: inherit;
+}
+
+.crm-header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.crm-header-new {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 7px var(--s3);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-header-new:hover {
+  background: var(--crm-blue-2);
+}
+.crm-header-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--crm-navy);
+  color: var(--c-fixed-on-dark);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: default;
+}
+
+/* ═══ PESQUISA UNIVERSAL (Cmd+K) ═══ */
+.crm-cmdk-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 41, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  z-index: 200;
+}
+.crm-cmdk {
+  background: var(--c-surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 620px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3);
+  overflow: hidden;
+}
+.crm-cmdk-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: var(--s4) var(--s5);
+  font-size: 15px;
+  border-bottom: 0.5px solid var(--crm-line);
+}
+.crm-cmdk-results {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: var(--s2);
+}
+.crm-cmdk-hint {
+  padding: var(--s4);
+  font-size: 12.5px;
+  color: var(--crm-dim);
+}
+.crm-cmdk-item {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: var(--s2) var(--s3);
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+}
+.crm-cmdk-item.active {
+  background: var(--c-accent-soft);
+}
+.crm-cmdk-item-main {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--crm-text);
+}
+.crm-cmdk-item-sub {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+  margin-top: 2px;
+}
+
+/* ═══ HIGHLIGHTS PANEL (padrão Salesforce, layout.md §1) ═══ */
+.crm-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--s3);
+  padding: var(--s3) var(--s6);
+  background: var(--crm-bg);
+  border-bottom: 0.5px solid var(--crm-line);
+  flex-shrink: 0;
+}
+.crm-hl-item {
+  min-width: 0;
+}
+.crm-hl-lbl {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.crm-hl-val {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--crm-text);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.crm-hl-val.muted {
+  color: var(--crm-dim);
+  font-weight: 600;
+}
+.crm-hl-val.warn {
+  color: var(--c-muted);
+}

@@ -1,0 +1,162 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+# Um push novo cancela a execução anterior do mesmo ramo.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # A mesma versão que corre em produção (Vercel) e em desenvolvimento. Ter o
+  # CI noutra versão faz o que aconteceu aqui: o `jsdom` exige Node 22+ e os
+  # testes rebentavam só no CI, com tudo verde na máquina de quem programa.
+  NODE_VERSION: '24'
+
+jobs:
+  qualidade:
+    name: Tipos, lint e formatação
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Instalar dependências
+        run: |
+          npm ci
+          npm ci --prefix backend
+          npm ci --prefix frontend
+
+      - name: Verificação de tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Formatação
+        run: npm run format:check
+
+  testes:
+    name: Testes e cobertura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Instalar dependências
+        run: |
+          npm ci --prefix backend
+          npm ci --prefix frontend
+
+      # A cobertura tem limiares mínimos definidos em vitest.config.ts:
+      # se descerem, este passo falha.
+      - name: Testes do backend com cobertura
+        run: npm run test:coverage --prefix backend
+
+      - name: Testes do frontend
+        run: npm run test --prefix frontend
+
+      - name: Guardar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-backend
+          path: backend/coverage
+          retention-days: 7
+
+  build:
+    name: Build de produção
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci --prefix frontend
+      - run: npm run build --prefix frontend
+
+      - name: Guardar o bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+          retention-days: 7
+
+  e2e:
+    name: Testes ponta a ponta
+    runs-on: ubuntu-latest
+    # Levantam a aplicação inteira; só correm se o resto estiver de pé.
+    needs: [qualidade, testes]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Instalar dependências
+        run: |
+          npm ci
+          npm ci --prefix backend
+          npm ci --prefix frontend
+
+      # Chromium para o grosso da suite; webkit porque `mobile.spec.ts` usa
+      # `devices['iPhone 13']`, e esse perfil arrasta o motor do Safari. Sem
+      # ele, esses testes falham com "Executable doesn't exist" — e localmente
+      # ninguém repara, porque quem instalou o Playwright tem os dois.
+      - name: Instalar os browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      # Base de dados limpa e conta conhecida, criadas pelo próprio arranque.
+      # O endereço é deliberadamente de fabrico (.test é um TLD reservado para
+      # isto): este ficheiro é público, e nomear aqui a conta real de
+      # administração era dizer a um atacante qual o alvo a atacar.
+      - name: Preparar ambiente
+        run: |
+          cat > backend/.env.local <<'EOF'
+          JWT_SECRET=segredo-de-ci-efemero-nao-usado-em-producao
+          ADMIN_EMAIL=ci@exemplo.test
+          ADMIN_PASSWORD=senha-efemera-de-ci
+          ADMIN_NAME=Admin CI
+          LOGIN_RATE_LIMIT=200
+          EOF
+
+      - name: Correr E2E
+        env:
+          E2E_EMAIL: ci@exemplo.test
+          E2E_PASSWORD: senha-efemera-de-ci
+        run: npx playwright test
+
+      - name: Guardar o relatório em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

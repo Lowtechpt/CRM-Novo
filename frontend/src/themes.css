@@ -1,0 +1,196 @@
+/**
+ * Sistema de cor.
+ *
+ * Três temas: dois claros e um escuro. Nomes neutros — o produto não se
+ * apresenta a dizer de quem copiou o aspeto.
+ *
+ * ── A regra que governa tudo ──
+ *
+ * UM acento, UM alarme, o resto neutro.
+ *
+ * A versão anterior tinha oito cores a competir no mesmo ecrã: score verde,
+ * laranja, amarelo e vermelho; responsável em rosa e azul; estado em verde;
+ * dias sem contacto em vermelho. Tudo a gritar ao mesmo tempo, o que é o mesmo
+ * que nada gritar — o olho deixa de saber onde pousar e a interface parece um
+ * arco-íris em vez de uma ferramenta de trabalho.
+ *
+ * Agora:
+ *   - `--c-accent`  → ação e seleção. Um só azul, um só sítio de cada vez.
+ *   - `--c-danger`  → só o que exige agir hoje (sem contacto há muito tempo).
+ *   - tudo o resto  → escala de cinzentos. Hierarquia por peso e contraste,
+ *                     não por cor.
+ *
+ * Não há verde de "sucesso" nem amarelo de "atenção". Um cliente ativo é o
+ * estado normal e não precisa de ser celebrado com cor.
+ *
+ * ── Regra de ouro do tema escuro ──
+ *
+ * Nenhuma superfície acima de `--c-surface-3`. Um cartão branco em modo escuro
+ * não é um detalhe: é o que faz o modo escuro deixar de o ser, e foi o que
+ * aconteceu na versão anterior — o painel de atividade ficava branco puro
+ * dentro de uma aplicação escura.
+ */
+
+:root {
+  /* Escala tipográfica e de forma, comum a todos os temas */
+  --crm-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --crm-radius: 8px;
+  --crm-radius-sm: 6px;
+  --crm-radius-lg: 12px;
+
+  /* Texto sobre superfícies que são escuras em TODOS os temas: barra lateral,
+     botões de acento, marcadores. Não segue o tema de propósito — se seguisse,
+     escurecia com o modo escuro e desaparecia.
+     Foi o que aconteceu ao migrar `color: #fff` para um token de superfície:
+     a marca "CRM Vendas" ficou escura sobre escuro. */
+  --c-fixed-on-dark: #ffffff;
+
+  /* ── Densidade da interface ──
+     0.85 = tudo a 85% do tamanho nominal.
+     Um CRM é uma ferramenta de trabalho: quantas mais linhas couberem no ecrã
+     sem obrigar a rolar, menos tempo se perde. A 100% obrigava a reduzir o
+     zoom do browser para ter a vista útil — o que é o utilizador a corrigir à
+     mão o que o desenho devia dar de origem.
+
+     Aplicado por `zoom` na raiz da aplicação: escala tudo de uma vez —
+     tipos, espaçamentos, ícones e bordas — em vez de multiplicar centenas de
+     valores em px, que teriam de ser revistos um a um a cada ajuste.
+
+     As alturas de viewport são divididas por este valor (ver `.crm-layout`):
+     sem isso, `100vh` renderizaria a 85% e sobrava faixa branca em baixo. */
+  --c-escala: 0.85;
+}
+
+/* ══════════════════ CLARO 1 ══════════════════ */
+
+[data-theme='claro-1'] {
+  /* Valores originais preservados: azul-ardósia com acento laranja.
+     Só o nome mudou. */
+  --c-app-bg: #f5f8fa;
+  --c-surface: #ffffff;
+  --c-surface-2: #f5f8fa;
+  --c-surface-3: #ebf0f4;
+  --c-line: #dfe3eb;
+  --c-line-soft: #eaeef3;
+
+  --c-text: #33475b;
+  --c-muted: #516f90;
+  --c-dim: #7c98b6;
+
+  --c-accent: #ff7a59;
+  --c-accent-hover: #e8623c;
+  --c-accent-soft: #fff1ed;
+  --c-accent-text: #ffffff;
+  --c-on-accent-soft: #c04a28;
+
+  --c-danger: #b42318;
+  --c-danger-soft: #fef2f2;
+
+  --c-nav-bg: #33475b;
+  --c-nav-text: #a4b6c7;
+  --c-nav-text-active: #ffffff;
+  --c-nav-active: #425a72;
+
+  /* Flat: quase sem sombra, tudo definido por bordas */
+  --c-shadow-1: none;
+  --c-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --c-shadow-3: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ══════════════════ CLARO 2 ══════════════════ */
+
+[data-theme='claro-2'] {
+  /* Valores originais preservados: neutro quente com acento azul.
+     Só o nome mudou. */
+  --c-app-bg: #faf9f8;
+  --c-surface: #ffffff;
+  --c-surface-2: #f3f2f1;
+  --c-surface-3: #edebe9;
+  --c-line: #e1dfdd;
+  --c-line-soft: #edebe9;
+
+  --c-text: #201f1e;
+  --c-muted: #605e5c;
+  --c-dim: #8a8886;
+
+  --c-accent: #0078d4;
+  --c-accent-hover: #106ebe;
+  --c-accent-soft: #eff6fc;
+  --c-accent-text: #ffffff;
+  --c-on-accent-soft: #004578;
+
+  --c-danger: #a4262c;
+  --c-danger-soft: #fdf3f4;
+
+  --c-nav-bg: #1b3a57;
+  --c-nav-text: #9db4c7;
+  --c-nav-text-active: #ffffff;
+  --c-nav-active: #2a5478;
+
+  --c-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --c-shadow-2: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --c-shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* ══════════════════ ESCURO ══════════════════
+   Superfícies em degrau, todas escuras. A hierarquia faz-se por elevação
+   (cada nível um pouco mais claro que o anterior), nunca por inversão. */
+
+[data-theme='escuro'] {
+  --c-app-bg: #0d1117;
+  --c-surface: #151b23;
+  --c-surface-2: #1b222c;
+  --c-surface-3: #212a35;
+  --c-line: #2a3441;
+  --c-line-soft: #222b36;
+
+  --c-text: #e8edf3;
+  --c-muted: #97a3b3;
+  --c-dim: #6b7888;
+
+  --c-accent: #4a8ef0;
+  --c-accent-hover: #6aa2f4;
+  --c-accent-soft: #17253c;
+  --c-accent-text: #0d1117;
+  --c-on-accent-soft: #8cb8f7;
+
+  --c-danger: #f0857a;
+  --c-danger-soft: #2c1a1a;
+
+  --c-nav-bg: #0a0e14;
+  --c-nav-text: #7c8898;
+  --c-nav-text-active: #ffffff;
+  --c-nav-active: #1b232f;
+
+  /* Em fundo escuro a sombra quase não se lê: a elevação vem do degrau de
+     superfície, e a sombra serve só para descolar do plano de fundo. */
+  --c-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --c-shadow-2: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --c-shadow-3: 0 18px 44px rgba(0, 0, 0, 0.65);
+}
+
+/* ══════════════════ Compatibilidade ══════════════════
+   Os nomes antigos continuam a funcionar enquanto o CSS restante é migrado.
+   São aliases, não valores: mudar o tema muda tudo de uma vez. */
+
+[data-theme] {
+  --crm-app-bg: var(--c-app-bg);
+  --crm-surface: var(--c-surface);
+  --crm-surface-2: var(--c-surface-2);
+  --crm-bg: var(--c-surface-2);
+  --crm-line: var(--c-line);
+
+  --crm-text: var(--c-text);
+  --crm-muted: var(--c-muted);
+  --crm-dim: var(--c-dim);
+
+  --crm-blue: var(--c-accent);
+  --crm-blue-2: var(--c-accent-hover);
+  --crm-blue-dark: var(--c-accent-hover);
+  --crm-blue-light: var(--c-on-accent-soft);
+  --crm-navy: var(--c-nav-bg);
+
+  --crm-shadow-1: var(--c-shadow-1);
+  --crm-shadow-2: var(--c-shadow-2);
+  --crm-shadow-3: var(--c-shadow-3);
+}

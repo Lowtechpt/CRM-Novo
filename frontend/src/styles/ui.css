@@ -1,0 +1,1319 @@
+/* ═══ SIDE DRAWER (padrão Pipedrive) ═══ */
+.crm-drawer-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 41, 0.35);
+  z-index: 150;
+  display: flex;
+  justify-content: flex-end;
+}
+.crm-drawer {
+  background: var(--c-surface);
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.18);
+  display: flex;
+  flex-direction: column;
+  animation: crm-slide-in 0.18s ease-out;
+}
+@keyframes crm-slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0.6;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.crm-drawer-head {
+  padding: var(--s5) var(--s6);
+  border-bottom: 0.5px solid var(--crm-line);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+.crm-drawer-title {
+  flex: 1;
+  min-width: 0;
+}
+.crm-drawer-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--crm-text);
+  letter-spacing: -0.01em;
+}
+.crm-drawer-sub {
+  font-size: 12.5px;
+  color: var(--crm-muted);
+  margin-top: 3px;
+}
+.crm-drawer-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--crm-dim);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.crm-drawer-close:hover {
+  color: var(--crm-text);
+}
+.crm-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s5) var(--s6);
+}
+.crm-drawer-foot {
+  padding: var(--s4) var(--s6);
+  border-top: 0.5px solid var(--crm-line);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s2);
+}
+
+/* Alerta visual no cartão do kanban (padrão Pipedrive) */
+.crm-deal-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--c-danger);
+  background: var(--c-danger-soft);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* ═══ CLIENTES: lista + registo ═══
+   Duas colunas apenas. A terceira coluna de contexto vive DENTRO do registo
+   (.crm-record), que tem as suas próprias 3 colunas. Ter aqui uma terceira
+   coluna deixava-a vazia e comprimia o registo. */
+.crm-clients-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Coluna 1: lista ── */
+.crm-client-list {
+  background: var(--crm-bg);
+  border-right: 0.5px solid var(--crm-line);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.crm-search {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.crm-search input {
+  min-width: 0;
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 13px;
+  outline: none;
+  background: var(--c-surface);
+  color: var(--crm-text);
+}
+
+.crm-search input:focus {
+  border-color: var(--crm-blue);
+  box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.1);
+}
+
+.crm-add-btn {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.crm-add-btn:hover {
+  background: var(--crm-blue-2);
+}
+
+.crm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 12px;
+  flex-shrink: 0;
+}
+
+.crm-chip {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: 100px;
+  border: 0.5px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--crm-muted);
+  cursor: pointer;
+}
+.crm-chip.active {
+  background: var(--c-accent-soft);
+  color: var(--crm-blue-dark);
+  border-color: var(--c-on-accent-soft);
+}
+
+.crm-list-items {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.crm-list-item {
+  padding: 12px 14px;
+  border-bottom: 0.5px solid var(--c-line-soft);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.crm-list-item:hover {
+  background: var(--c-surface-2);
+}
+.crm-list-item.selected {
+  background: var(--c-accent-soft);
+  border-left-color: var(--crm-blue);
+}
+
+.crm-item-star {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: var(--c-muted);
+  cursor: pointer;
+  font-size: 15px;
+  flex-shrink: 0;
+  padding: 0;
+}
+.crm-item-star.active {
+  color: var(--c-muted);
+}
+
+.crm-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.crm-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--crm-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crm-item-sub {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+\.crm-item-score {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-muted);
+  background: var(--c-surface-3);
+  border-radius: 100px;
+  padding: 3px 9px;
+  flex-shrink: 0;
+}
+/* O score não é um semáforo. Um cliente com 95 não precisa de ser celebrado
+   a verde; a hierarquia faz-se pelo peso do número, não pela cor. */
+.crm-item-score.score-high {
+  color: var(--c-text);
+  background: var(--c-surface-3);
+  font-weight: 700;
+}
+.crm-item-score.score-mid {
+  color: var(--c-muted);
+  background: var(--c-surface-3);
+}
+.crm-item-score.score-low {
+  color: var(--c-muted);
+  background: var(--c-surface-3);
+}
+
+/* ── Coluna 2: detalhe ── */
+.crm-detail {
+  background: var(--c-surface);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.crm-detail-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crm-dim);
+  font-size: 13px;
+}
+
+.crm-detail-header {
+  padding: 20px 24px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.crm-detail-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.crm-detail-name {
+  font-size: 22px;
+  font-weight: 850;
+  color: var(--crm-text);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.crm-detail-contacts {
+  font-size: 13px;
+  color: var(--crm-muted);
+  margin-top: 4px;
+}
+
+.crm-detail-status {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+  border: 0.5px solid var(--c-line);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.crm-detail-status.st-prospeto {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+  border-color: var(--c-dim);
+}
+.crm-detail-status.st-contactado {
+  background: var(--c-accent-soft);
+  color: var(--c-on-accent-soft);
+  border-color: var(--c-on-accent-soft);
+}
+.crm-detail-status.st-inativo {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+  border-color: var(--c-line);
+}
+
+.crm-btn-outline {
+  background: var(--c-surface);
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.crm-btn-outline:hover {
+  background: var(--c-app-bg);
+}
+.crm-btn-outline.danger {
+  color: var(--c-danger);
+  border-color: var(--c-danger-soft);
+}
+
+.crm-detail-tabs {
+  display: flex;
+  gap: 0;
+  padding: 14px 24px 0;
+  border-bottom: 0.5px solid var(--crm-line);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.crm-detail-tab {
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--crm-muted);
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.crm-detail-tab:hover {
+  color: var(--c-text);
+}
+.crm-detail-tab.active {
+  color: var(--crm-blue);
+  border-bottom-color: var(--crm-blue);
+  font-weight: 500;
+}
+
+.crm-detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px;
+  background: var(--c-surface);
+}
+
+/* ── Coluna 3: painel ── */
+.crm-panel {
+  background: var(--crm-bg);
+  border-left: 0.5px solid var(--crm-line);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.crm-panel-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.crm-panel-add {
+  background: transparent;
+  border: none;
+  color: var(--crm-blue);
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.crm-card {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.crm-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--crm-text);
+}
+.crm-card-role {
+  font-size: 12px;
+  color: var(--crm-muted);
+  margin-top: 2px;
+}
+.crm-card-contact {
+  font-size: 12px;
+  color: var(--crm-muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.crm-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--crm-dim);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 4px;
+}
+.crm-icon-btn:hover {
+  color: var(--c-text);
+}
+.crm-icon-btn.danger:hover {
+  color: var(--c-danger);
+}
+
+.crm-ai-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--crm-navy);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.crm-ai-btn:hover {
+  background: var(--c-surface-3);
+}
+
+/* ═══ FORMULÁRIOS ═══ */
+.crm-form-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+.crm-form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.crm-form-row.dual {
+  grid-template-columns: repeat(2, 1fr);
+}
+.crm-form-row.single {
+  grid-template-columns: 1fr;
+}
+
+.crm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.crm-field label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.crm-field input,
+.crm-field select,
+.crm-field textarea {
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 13px;
+  color: var(--crm-text);
+  outline: none;
+  background: var(--c-surface);
+  width: 100%;
+}
+
+.crm-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.crm-field input:focus,
+.crm-field select:focus,
+.crm-field textarea:focus {
+  border-color: var(--crm-blue);
+  box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.1);
+}
+
+.crm-submit {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-submit:hover {
+  background: var(--crm-blue-2);
+}
+.crm-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ═══ INFO GRID ═══ */
+.crm-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.crm-info-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.crm-info-value {
+  font-size: 13px;
+  color: var(--crm-text);
+}
+
+/* ═══ MODAL ═══ */
+.crm-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 41, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.crm-modal {
+  background: var(--c-surface);
+  border-radius: 14px;
+  padding: 26px;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+}
+
+.crm-modal h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.crm-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 0.5px solid var(--crm-line);
+}
+
+/* ═══ INDICADOR DE SINCRONIZAÇÃO ═══ */
+.crm-sync {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.crm-sync-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crm-sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--c-muted);
+}
+.crm-sync-pending .crm-sync-dot {
+  background: var(--c-muted);
+}
+.crm-sync-offline .crm-sync-dot {
+  background: var(--c-danger);
+}
+
+.crm-sync-dot.spin {
+  animation: crm-pulse 1s ease-in-out infinite;
+}
+@keyframes crm-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.crm-sync-label {
+  font-size: 12px;
+  font-weight: 600;
+  /* Vive na barra lateral, que é escura em todos os temas. */
+  color: var(--c-nav-text-active);
+}
+.crm-sync-sub {
+  font-size: 10.5px;
+  /* Barra lateral: tokens de navegação, não os de conteúdo. */
+  color: var(--c-nav-text);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.crm-sync-err {
+  font-size: 10.5px;
+  color: var(--c-danger-soft);
+  margin-top: 6px;
+  word-break: break-word;
+}
+
+.crm-sync-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px;
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-sync-btn:hover {
+  background: var(--crm-blue-2);
+}
+
+/* Registo ainda não sincronizado */
+.crm-pending-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-line);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-dim);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1280px) {
+  .crm-clients-grid {
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+  }
+  .crm-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --crm-side-w: 56px;
+
+    /* Densidade normal em telemóvel.
+       Os 85% servem o desktop, onde o objetivo é caber mais linhas no ecrã.
+       Num telemóvel o problema é outro: com a escala reduzida, os botões da
+       navegação ficavam a 32×29px — abaixo do que um polegar acerta de forma
+       fiável. Aqui a restrição é o dedo, não o espaço. */
+    --c-escala: 1;
+  }
+
+  /* Área de toque mínima. 44px é a recomendação da Apple e da Google, e é
+     também o tamanho médio da ponta de um polegar adulto. */
+  .crm-nav-item,
+  .crm-side-cmd {
+    height: 44px;
+    min-height: 44px;
+  }
+  .crm-header button,
+  .crm-viewtab,
+  .crm-list-item {
+    min-height: 44px;
+  }
+  .crm-side-title,
+  .crm-side-sub,
+  .crm-nav-item span:not(.crm-nav-icon),
+  .crm-nav-section,
+  .crm-side-footer,
+  /* O texto do botão de comando transbordava o carril de 54px e ficava por
+     cima do conteúdo. O ícone chega — o nome vive no `aria-label`. */
+  .crm-side-cmd span,
+  .crm-side-collapse {
+    display: none;
+  }
+  .crm-side-cmd {
+    justify-content: center;
+    padding: 0;
+    height: 38px;
+  }
+
+  /* Cabeçalho: a pesquisa passa a ícone. O texto e o atalho de teclado não
+     fazem sentido em telemóvel e comiam metade da barra. */
+  .crm-header {
+    gap: var(--s2);
+    padding: 0 var(--s3);
+  }
+  .crm-header-search {
+    flex: 0 0 auto;
+    max-width: none;
+    width: 38px;
+    justify-content: center;
+    padding: 7px 0;
+  }
+  .crm-header-search span:not(.crm-header-search-icon),
+  .crm-header-search .crm-kbd,
+  .crm-header-cmd-lbl,
+  .crm-header-new-lbl {
+    display: none;
+  }
+  .crm-header-title {
+    font-size: 14px;
+  }
+  /* Sem a etiqueta, estes dois encolhiam para 27px de largura. */
+  .crm-header-new,
+  .crm-header-avatar {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
+  }
+  .crm-nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+  .crm-clients-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════ CONTACTOS CLICÁVEIS ═══════════ */
+.crm-contact-link {
+  color: var(--crm-blue);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.crm-contact-link:hover {
+  border-bottom-style: solid;
+}
+
+.crm-composer-collapsed {
+  display: flex;
+  gap: var(--s2);
+  align-items: stretch;
+  margin-bottom: var(--s4);
+}
+.crm-composer-collapsed .crm-composer-trigger {
+  margin-bottom: 0;
+  flex: 1;
+}
+.crm-composer-collapsed .crm-voice-btn {
+  padding: 10px var(--s4);
+}
+
+/* ═══════════ BARRA DE COMANDO ═══════════ */
+.crm-cmdbar {
+  background: var(--crm-surface, var(--c-surface));
+  border-radius: 14px;
+  width: 100%;
+  max-width: 680px;
+  overflow: hidden;
+  box-shadow: var(--crm-shadow-3, 0 24px 60px rgba(15, 23, 42, 0.3));
+}
+.crm-cmdbar-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  border-bottom: 0.5px solid var(--crm-line);
+  background: var(--crm-surface-2, var(--crm-bg));
+}
+.crm-cmdbar-ico {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.crm-cmdbar-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--crm-text);
+}
+.crm-cmdbar-hint {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--crm-dim);
+}
+
+.crm-cmdbar-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: var(--s5);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 84px;
+  background: transparent;
+  color: var(--crm-text);
+  font-family: inherit;
+}
+
+.crm-cmdbar-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0 var(--s5) var(--s4);
+  flex-wrap: wrap;
+}
+.crm-cmdbar-spacer {
+  flex: 1;
+}
+
+.crm-cmdbar-preview {
+  padding: var(--s3) var(--s5);
+  border-top: 0.5px solid var(--crm-line);
+}
+.crm-cmdbar-preview.ok {
+  background: var(--c-surface-3);
+}
+.crm-cmdbar-preview.bad {
+  background: var(--c-surface-3);
+}
+.crm-cmdbar-preview-lbl {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+.crm-cmdbar-preview.ok .crm-cmdbar-preview-lbl {
+  color: var(--c-muted);
+}
+.crm-cmdbar-preview.bad .crm-cmdbar-preview-lbl {
+  color: var(--c-muted);
+}
+.crm-cmdbar-preview-txt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+.crm-cmdbar-preview-notes {
+  font-size: 12.5px;
+  color: var(--c-muted);
+  margin-top: 3px;
+  font-style: italic;
+}
+
+.crm-cmdbar-examples {
+  padding: var(--s3) var(--s5) var(--s5);
+  border-top: 0.5px solid var(--crm-line);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.crm-cmdbar-ex {
+  text-align: left;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: var(--crm-dim);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-family: inherit;
+}
+.crm-cmdbar-ex:hover {
+  background: var(--crm-surface-2, var(--c-surface-2));
+  color: var(--crm-blue);
+}
+.crm-cmdbar-ex::before {
+  content: '→ ';
+  opacity: 0.5;
+}
+
+.crm-cmdbar-error {
+  padding: var(--s3) var(--s5);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+  font-size: 12.5px;
+}
+
+/* Botão no header */
+.crm-header-cmd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 0.5px solid var(--crm-line);
+  border-radius: 8px;
+  padding: 6px var(--s3);
+  color: var(--crm-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.crm-header-cmd:hover {
+  border-color: var(--crm-blue);
+  color: var(--crm-blue);
+}
+
+/* Confirmação */
+.crm-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--c-text);
+  color: var(--c-fixed-on-dark);
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35);
+  z-index: 300;
+  animation: crm-toast-in 0.2s ease-out;
+}
+@keyframes crm-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Registo rápido na sidebar — entrada fixa, sem depender do atalho */
+.crm-side-cmd {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: 10px;
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: var(--s4);
+}
+.crm-side-cmd:hover {
+  background: var(--crm-blue-2);
+}
+.crm-sidebar.collapsed .crm-side-cmd {
+  padding: 9px 0;
+}
+
+/* ═══════════ LOGIN ═══════════ */
+/* Login, arranque e erro vivem fora do `.crm-layout`, por isso levam a escala
+   e a compensação de altura por sua conta. */
+.crm-login {
+  zoom: var(--c-escala);
+  min-height: calc(100vh / var(--c-escala));
+  display: grid;
+  place-items: center;
+  background: var(--crm-app-bg, var(--crm-navy));
+  padding: var(--s5);
+}
+.crm-login-box {
+  background: var(--crm-surface, var(--c-surface));
+  border-radius: 14px;
+  padding: var(--s8);
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  box-shadow: var(--crm-shadow-3, 0 24px 60px rgba(15, 23, 42, 0.3));
+}
+.crm-login-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s2);
+}
+.crm-login-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--crm-text);
+}
+.crm-login-sub {
+  font-size: 12px;
+  color: var(--crm-dim);
+}
+.crm-login-error {
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+  border-radius: 8px;
+  padding: 9px var(--s3);
+  font-size: 12.5px;
+}
+
+.crm-boot {
+  zoom: var(--c-escala);
+  min-height: calc(100vh / var(--c-escala));
+  display: grid;
+  place-items: center;
+  color: var(--crm-dim);
+  font-size: 13px;
+  background: var(--crm-app-bg, var(--c-surface));
+}
+
+/* ═══════════ ECRÃ DE ERRO ═══════════ */
+.crm-crash {
+  zoom: var(--c-escala);
+  min-height: calc(100vh / var(--c-escala));
+  display: grid;
+  place-items: center;
+  padding: var(--s5);
+  background: var(--crm-app-bg, var(--c-app-bg));
+}
+.crm-crash-box {
+  background: var(--crm-surface, var(--c-surface));
+  border-radius: 14px;
+  padding: var(--s8);
+  max-width: 520px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+}
+.crm-crash-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--crm-text);
+  margin-bottom: var(--s3);
+}
+.crm-crash-text {
+  font-size: 13px;
+  color: var(--crm-muted);
+  line-height: 1.6;
+  margin-bottom: var(--s4);
+}
+.crm-crash-detail {
+  background: var(--crm-surface-2, var(--c-surface-3));
+  border-radius: 8px;
+  padding: var(--s3);
+  font-size: 11.5px;
+  color: var(--c-danger);
+  overflow-x: auto;
+  margin-bottom: var(--s4);
+  white-space: pre-wrap;
+}
+.crm-crash-actions {
+  display: flex;
+  gap: var(--s2);
+}
+
+/* Avatar passou a ser botão de sessão */
+.crm-header-avatar {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.crm-header-avatar:hover {
+  opacity: 0.85;
+}
+
+/* ── Alterações recusadas pelo servidor ──
+   Ficam visíveis até o utilizador as dispensar: saíram da fila para não
+   bloquearem as seguintes, e o cache otimista já as tinha mostrado como
+   aceites. Sem isto, uma alteração desaparecia sem explicação. */
+.crm-sync-rejected {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 0.5px solid rgba(220, 38, 38, 0.35);
+}
+.crm-sync-rejected-head {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--c-danger);
+  margin-bottom: 6px;
+}
+.crm-sync-rejected-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.crm-sync-rejected-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.crm-sync-rejected-alvo {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--crm-side-fg, var(--c-nav-text));
+}
+.crm-sync-rejected-motivo {
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: 0.8;
+}
+
+/* ── Entrada em modo demonstração ──
+   Visualmente secundária em relação ao login normal: é uma saída para quem
+   vem ver o projeto, não o caminho principal de quem o usa. */
+.crm-login-sep {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 10px;
+  color: var(--crm-muted, var(--c-dim));
+  font-size: 11px;
+}
+.crm-login-sep::before,
+.crm-login-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--crm-border, var(--c-line));
+}
+.crm-login-demo {
+  width: 100%;
+  justify-content: center;
+}
+.crm-login-nota {
+  margin-top: 8px;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--crm-muted, var(--c-dim));
+  text-align: center;
+}
+
+/* ═══════════ ECRÃ ESTREITO — lista OU ficha ═══════════
+   Empilhadas, era preciso rolar por toda a lista para chegar ao detalhe do
+   cliente escolhido, e não havia como voltar. Aqui mostra-se uma de cada vez,
+   como qualquer app móvel faz. */
+@media (max-width: 900px) {
+  .crm-clients-grid[data-vista-movel='lista'] .crm-detail,
+  .crm-clients-grid[data-vista-movel='ficha'] .crm-client-list {
+    display: none;
+  }
+  .crm-clients-grid[data-vista-movel] {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  /* A ficha ocupa o ecrã todo e rola por dentro. */
+  .crm-clients-grid[data-vista-movel='ficha'] .crm-detail {
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* As três colunas do registo passam a uma só; as associações vão para
+     baixo em vez de desaparecerem — em mobile são a informação mais
+     consultada depois da timeline. */
+  .crm-record {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crm-record-col.rel {
+    display: block;
+    border-left: none;
+    border-top: 0.5px solid var(--c-line);
+  }
+  .crm-record-col.main {
+    padding: var(--s4);
+  }
+
+  /* Cabeçalho da ficha: nome e ações passam a empilhar para caberem. */
+  .crm-detail-header {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .crm-detail-name {
+    font-size: 18px;
+  }
+
+  /* Email + telefone + site embrulhavam em três linhas próprias e empurravam
+     a atividade para baixo do ecrã. Uma linha só, com scroll horizontal em
+     vez de quebra — mesmo padrão dos destaques logo abaixo. */
+  .crm-detail-contacts {
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .crm-detail-contacts::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Os destaques rolam na horizontal em vez de comprimir a ponto de
+     ficarem ilegíveis. */
+  .crm-highlights {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .crm-highlights::-webkit-scrollbar {
+    display: none;
+  }
+  .crm-hl-item {
+    min-width: 116px;
+  }
+
+  /* As tabs do registo também rolam: são oito e não cabem. */
+  .crm-detail-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .crm-detail-tabs::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Botão de voltar — só existe em ecrã estreito, onde a ficha tapa a lista. */
+.crm-voltar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--c-surface-3);
+  border: 0.5px solid var(--c-line);
+  border-radius: var(--crm-radius);
+  color: var(--c-text);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+.crm-voltar:hover {
+  background: var(--c-line-soft);
+}

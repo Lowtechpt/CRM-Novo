@@ -1,0 +1,8 @@
+/* Folha de estilo do CRM, repartida por área.
+   Antes era um único ficheiro de 1500 linhas. */
+
+@import './styles/base.css'; /* tokens, reset, tipografia */
+@import './styles/shell.css'; /* layout, sidebar, header, view bar */
+@import './styles/record.css'; /* ficha do cliente e listas */
+@import './styles/modules.css'; /* dashboard, kanban, calendário, mapa, IA */
+@import './styles/ui.css'; /* modais, formulários, login, estados */

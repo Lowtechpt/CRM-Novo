@@ -1,0 +1,1122 @@
+/* ═══ PÁGINAS GERAIS (dashboard, kanban, etc.) ═══ */
+.crm-page {
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 28px;
+  background: var(--c-surface);
+}
+
+.crm-page-head {
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.crm-page-head h1 {
+  font-size: 22px;
+  font-weight: 850;
+  letter-spacing: -0.01em;
+}
+.crm-page-head p {
+  font-size: 13px;
+  color: var(--crm-muted);
+  margin-top: 4px;
+}
+
+.crm-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.crm-kpi {
+  background: var(--crm-bg);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 12px;
+  padding: 18px;
+}
+.crm-kpi-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.crm-kpi-value {
+  font-size: 26px;
+  font-weight: 850;
+  color: var(--crm-text);
+  margin-top: 8px;
+  letter-spacing: -0.02em;
+}
+
+.crm-empty {
+  font-size: 13px;
+  color: var(--crm-dim);
+  text-align: center;
+  padding: 32px 12px;
+}
+
+/* ═══ KANBAN ═══ */
+.crm-kanban {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 280px;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+.crm-kanban-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.crm-kanban-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.crm-kanban-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+.crm-kanban-count {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+}
+
+.crm-deal {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 13px;
+  margin-bottom: 10px;
+}
+.crm-deal-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+.crm-deal-client {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+  margin-top: 2px;
+}
+.crm-deal-value {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--crm-blue);
+  margin: 9px 0;
+}
+
+/* ═══ SHELL DE MÓDULO (Concorrência, Equipa) ═══ */
+.crm-team-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.crm-team-head {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.2fr) repeat(4, minmax(120px, 1fr));
+  gap: 12px;
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.crm-dash-title {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.crm-dash-note {
+  font-size: 12px;
+  color: var(--crm-muted);
+  margin-top: 8px;
+}
+
+.crm-kpi-box {
+  background: var(--c-surface-2);
+  border: 0.5px solid var(--c-line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.crm-kpi-val {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--crm-blue);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.crm-kpi-lbl {
+  font-size: 11px;
+  color: var(--c-muted);
+  margin-top: 8px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.crm-dash-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  width: 100%;
+}
+
+.crm-dash-card {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.crm-dash-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.crm-dash-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 0.5px solid var(--c-line-soft);
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--c-text);
+}
+.crm-dash-empty {
+  font-size: 12px;
+  color: var(--c-dim);
+  padding: 8px 0;
+}
+
+.crm-team-table-wrap {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.crm-team-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+.crm-team-table th {
+  padding: 12px 14px;
+  background: var(--c-surface-2);
+  border-bottom: 0.5px solid var(--c-line);
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+  white-space: nowrap;
+}
+.crm-team-table td {
+  padding: 12px 14px;
+  border-bottom: 0.5px solid var(--c-line-soft);
+  font-size: 13px;
+  color: var(--c-text);
+  vertical-align: middle;
+}
+
+.crm-team-namecell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.crm-team-namecell strong {
+  font-size: 13px;
+  color: var(--c-text);
+}
+.crm-team-namecell span {
+  font-size: 11px;
+  color: var(--c-muted);
+}
+
+.crm-team-num {
+  font-weight: 800;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+.crm-team-mini {
+  font-size: 11px;
+  color: var(--c-muted);
+}
+.crm-team-linkrow {
+  cursor: pointer;
+}
+.crm-team-linkrow:hover {
+  background: var(--c-surface-2);
+}
+
+.crm-team-drill-btn {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.crm-team-drill-btn.alt {
+  background: var(--c-surface);
+  color: var(--c-text);
+  border: 0.5px solid var(--c-line);
+}
+
+.crm-status-pill {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.crm-status-pill.tone-instalado {
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.crm-status-pill.tone-disputa {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+}
+.crm-status-pill.tone-perdido {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+}
+.crm-status-pill.tone-ganho {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+}
+
+@media (max-width: 1100px) {
+  .crm-team-head {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .crm-dash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══ DASHBOARD (igual ao CRM de referência) ═══ */
+.crm-dash-hero {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) repeat(3, minmax(150px, 1fr));
+  gap: 16px;
+}
+.crm-dash-total {
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--c-on-accent-soft);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.crm-dash-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.crm-dash-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.crm-dash-chip {
+  background: var(--c-surface-2);
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 9px 10px;
+  min-width: 110px;
+}
+.crm-dash-chip b {
+  display: block;
+  font-size: 18px;
+  color: var(--c-accent);
+}
+.crm-dash-chip span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-muted);
+  font-weight: 850;
+}
+
+.crm-dash-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.crm-dash-bar-row {
+  display: grid;
+  grid-template-columns: minmax(88px, 120px) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+.crm-dash-bar-lbl {
+  font-size: 12px;
+  color: var(--c-muted);
+  font-weight: 700;
+}
+.crm-dash-bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--c-line-soft);
+  overflow: hidden;
+}
+.crm-dash-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--c-accent);
+}
+.crm-dash-bar-fill.green {
+  background: var(--c-dim);
+}
+.crm-dash-bar-fill.amber {
+  background: linear-gradient(90deg, var(--c-muted), var(--c-muted));
+}
+.crm-dash-bar-fill.red {
+  background: linear-gradient(90deg, var(--c-danger), var(--c-danger));
+}
+.crm-dash-bar-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--c-text);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.crm-dash-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+  min-height: 180px;
+}
+.crm-dash-day {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+.crm-dash-day-bar {
+  width: 100%;
+  max-width: 38px;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(180deg, var(--c-on-accent-soft), var(--c-accent));
+  min-height: 8px;
+}
+.crm-dash-day-val {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--c-text);
+}
+.crm-dash-day-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.crm-dash-soon {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.crm-dash-soon-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--c-line-soft);
+}
+.crm-dash-soon-date {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--crm-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.crm-dash-soon-main {
+  font-size: 12px;
+  color: var(--c-text);
+  font-weight: 800;
+}
+.crm-dash-soon-sub {
+  font-size: 11px;
+  color: var(--c-muted);
+  line-height: 1.45;
+  margin-top: 2px;
+}
+
+/* ═══ KANBAN (igual ao original) ═══ */
+.crm-kanban-board {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(240px, 1fr);
+  gap: 12px;
+  overflow-x: auto;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 6px;
+}
+.crm-kanban-col {
+  background: var(--c-surface-2);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 8px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh / var(--c-escala) - var(--crm-header-h) - 200px);
+}
+.crm-kanban-hdr {
+  padding: 12px;
+  border-bottom: 0.5px solid var(--c-line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--c-surface);
+  border-radius: 8px 8px 0 0;
+}
+.crm-kanban-stage {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--c-text);
+}
+.crm-kanban-count {
+  font-size: 10.5px;
+  background: var(--c-line-soft);
+  color: var(--c-muted);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.crm-kanban-cards {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 90px;
+  overflow-y: auto;
+  border: 1.5px dashed transparent;
+  border-radius: 8px;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.crm-kanban-cards.drag-over {
+  background: var(--c-accent-soft);
+  border-color: var(--c-accent);
+}
+
+.crm-deal-card {
+  background: var(--c-surface);
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: grab;
+  transition:
+    border-color 0.16s,
+    box-shadow 0.16s,
+    transform 0.16s,
+    opacity 0.16s;
+}
+.crm-deal-card:hover {
+  border-color: var(--c-on-accent-soft);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+.crm-deal-card.dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+.crm-deal-name {
+  font-size: 12.5px;
+  font-weight: 850;
+  color: var(--c-text);
+}
+.crm-deal-client {
+  font-size: 11px;
+  color: var(--c-muted);
+  margin-top: 2px;
+}
+.crm-deal-val {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--crm-blue);
+  margin-top: 6px;
+}
+.crm-deal-prob {
+  font-size: 10.5px;
+  color: var(--c-muted);
+  margin-top: 1px;
+}
+
+/* ═══ CALENDÁRIO (igual ao original) ═══ */
+.crm-calendar-shell {
+  background: var(--c-surface);
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.crm-calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-bottom: 0.5px solid var(--c-line);
+  background: var(--c-surface-2);
+}
+.crm-calendar-title {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--c-text);
+  text-transform: capitalize;
+}
+.crm-calendar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.crm-cal-btn {
+  border: 0.5px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+.crm-cal-btn:hover {
+  background: var(--c-surface-2);
+}
+.crm-cal-seg {
+  display: flex;
+  gap: 4px;
+  background: var(--c-line-soft);
+  border-radius: 10px;
+  padding: 3px;
+}
+.crm-cal-seg button {
+  border: 0;
+  background: transparent;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 850;
+  color: var(--c-text);
+  cursor: pointer;
+}
+.crm-cal-seg button.active {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+}
+
+.crm-cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(130px, 1fr));
+  min-height: 520px;
+  width: 100%;
+  overflow-x: auto;
+}
+.crm-cal-month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(110px, 1fr));
+  width: 100%;
+  overflow-x: auto;
+}
+.crm-cal-head {
+  background: var(--c-surface-2);
+  border-bottom: 0.5px solid var(--c-line);
+  border-right: 0.5px solid var(--c-line);
+  padding: 9px 10px;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.crm-cal-cell {
+  min-height: 120px;
+  border-right: 0.5px solid var(--c-line);
+  border-bottom: 0.5px solid var(--c-line);
+  padding: 8px;
+  background: var(--c-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.crm-cal-cell.today {
+  background: var(--c-accent-soft);
+}
+.crm-cal-cell.outside {
+  background: var(--c-surface-2);
+}
+.crm-cal-date {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--c-text);
+  margin-bottom: 2px;
+}
+.crm-cal-date.muted {
+  color: var(--c-dim);
+}
+
+.crm-cal-event {
+  border: 0.5px solid var(--c-on-accent-soft);
+  background: var(--c-accent-soft);
+  border-radius: 8px;
+  padding: 7px 8px;
+  cursor: pointer;
+  min-width: 0;
+}
+.crm-cal-event.done {
+  opacity: 0.55;
+}
+.crm-cal-event-time {
+  font-size: 10.5px;
+  font-weight: 900;
+  color: var(--crm-blue);
+  text-transform: uppercase;
+}
+.crm-cal-event-title {
+  font-size: 12px;
+  font-weight: 850;
+  color: var(--c-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.crm-cal-event-note {
+  font-size: 11px;
+  color: var(--c-muted);
+  margin-top: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.crm-cal-empty {
+  color: var(--c-dim);
+  font-size: 13px;
+  padding: 14px;
+}
+
+.crm-cal-day-view {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+  gap: 14px;
+  min-height: 420px;
+}
+.crm-cal-day-card {
+  background: var(--c-surface-2);
+  border: 0.5px solid var(--c-line);
+  border-radius: 8px;
+  padding: 16px;
+}
+.crm-cal-day-num {
+  font-size: 48px;
+  font-weight: 950;
+  color: var(--crm-blue);
+  line-height: 1;
+}
+.crm-cal-day-label {
+  font-size: 12px;
+  color: var(--c-muted);
+  margin-top: 6px;
+  text-transform: capitalize;
+}
+.crm-cal-day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ═══ MAPA ═══ */
+.crm-mapa-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.crm-mapa-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.crm-mapa-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--c-muted);
+  font-weight: 600;
+}
+.crm-mapa-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.crm-mapa-canvas {
+  height: calc(100vh / var(--c-escala) - var(--crm-header-h) - 190px);
+  min-height: 420px;
+  width: 100%;
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--c-surface-2);
+}
+.crm-map-popup-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--c-text);
+  margin-bottom: 2px;
+}
+.crm-map-popup-sub {
+  font-size: 11.5px;
+  color: var(--c-muted);
+}
+
+/* ═══ ASSISTENTE IA ═══ */
+.crm-ia-layout {
+  display: grid;
+  grid-template-columns: 1.4fr minmax(340px, 1fr);
+  gap: 16px;
+  height: calc(100% - 8px);
+}
+.crm-ia-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  overflow-y: auto;
+}
+.crm-ia-chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.crm-ia-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  min-height: 200px;
+  background: var(--c-surface);
+}
+.crm-ia-bubble {
+  display: flex;
+  margin-bottom: 8px;
+}
+.crm-ia-bubble > div {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.crm-ia-bubble.user {
+  justify-content: flex-end;
+}
+.crm-ia-bubble.user > div {
+  background: var(--crm-blue);
+  color: var(--c-fixed-on-dark);
+}
+.crm-ia-bubble.ai {
+  justify-content: flex-start;
+}
+.crm-ia-bubble.ai > div {
+  background: var(--c-surface-3);
+  color: var(--c-text);
+}
+.crm-ia-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.crm-ia-stat {
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: var(--c-surface);
+}
+.crm-ia-stat-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--crm-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.crm-ia-stat-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--c-text);
+  margin-top: 2px;
+}
+
+@media (max-width: 1200px) {
+  .crm-dash-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  .crm-dash-hero {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .crm-ia-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+/* ═══════════ HOJE: briefing + custo do silêncio ═══════════ */
+.crm-silence {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  gap: var(--s5);
+  align-items: center;
+  background: var(--c-danger);
+  color: var(--c-fixed-on-dark);
+  border-radius: 12px;
+  padding: var(--s5) var(--s6);
+  margin-bottom: var(--s5);
+}
+.crm-silence-lbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  opacity: 0.82;
+}
+.crm-silence-val {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-top: 4px;
+}
+.crm-silence-sub {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 6px;
+  line-height: 1.45;
+}
+.crm-silence-buckets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s3);
+}
+.crm-silence-bucket {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  padding: var(--s3);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.crm-silence-bval {
+  font-size: 17px;
+  font-weight: 800;
+}
+.crm-silence-blbl {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.crm-hoje-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s4);
+}
+.crm-hoje-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: start;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--c-surface-3);
+  width: 100%;
+  text-align: left;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  background: transparent;
+}
+.crm-hoje-row.link {
+  cursor: pointer;
+}
+.crm-hoje-row.link:hover {
+  background: var(--crm-surface-2, var(--c-surface-2));
+}
+.crm-hoje-time {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--crm-blue);
+  font-variant-numeric: tabular-nums;
+  min-width: 42px;
+}
+.crm-hoje-time.late {
+  color: var(--c-danger);
+}
+.crm-hoje-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--crm-text);
+  font-variant-numeric: tabular-nums;
+}
+.crm-hoje-days {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--c-muted);
+  background: var(--c-surface-3);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.crm-hoje-days.hot {
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.crm-hoje-main {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--crm-text);
+}
+.crm-hoje-sub {
+  font-size: 11.5px;
+  color: var(--crm-dim);
+  margin-top: 2px;
+}
+.crm-hoje-badge {
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 2px 8px;
+  background: var(--c-accent-soft);
+  color: var(--crm-blue-dark);
+}
+.crm-hoje-badge.danger {
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.crm-hoje-badge.warn {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+}
+
+/* ═══════════ MODO TERRENO (mapa + à tua volta) ═══════════ */
+.crm-mapa-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: var(--s4);
+  align-items: stretch;
+}
+.crm-nearby {
+  background: var(--crm-surface-2, var(--crm-bg));
+  border: 0.5px solid var(--crm-line);
+  border-radius: 10px;
+  padding: var(--s4);
+  overflow-y: auto;
+  max-height: calc(100vh / var(--c-escala) - var(--crm-header-h) - 190px);
+}
+.crm-nearby-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s3);
+}
+.crm-nearby-count {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--crm-blue);
+}
+.crm-nearby-empty {
+  font-size: 12px;
+  color: var(--crm-dim);
+  line-height: 1.5;
+}
+.crm-nearby-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s3);
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--c-line-soft);
+}
+.crm-nearby-dist {
+  font-size: 11.5px;
+  font-weight: 900;
+  color: var(--crm-blue);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.crm-nearby-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--crm-text);
+}
+.crm-nearby-meta {
+  font-size: 11px;
+  color: var(--crm-dim);
+  margin-top: 2px;
+}
+.crm-nearby-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.crm-nearby-act {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 5px;
+  border: 0.5px solid var(--crm-line);
+  background: var(--crm-surface, var(--c-surface));
+  color: var(--crm-blue);
+  cursor: pointer;
+  text-decoration: none;
+}
+.crm-nearby-act:hover {
+  border-color: var(--crm-blue);
+}
+
+@media (max-width: 1100px) {
+  .crm-mapa-layout {
+    grid-template-columns: 1fr;
+  }
+  .crm-silence {
+    grid-template-columns: 1fr;
+  }
+}

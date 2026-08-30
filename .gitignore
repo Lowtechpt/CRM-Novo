@@ -1,0 +1,52 @@
+﻿node_modules/
+node_modules*/
+.env.local
+.env.*.local
+dist/
+build/
+.DS_Store
+*.log
+.vite/
+.vercel/
+
+# JS compilado que o tsx deixa ao lado das fontes TypeScript
+frontend/src/**/*.js
+backend/src/**/*.js
+e2e/.auth/
+
+# ── Documentos internos de trabalho ──
+# Investigação, registos de sessão e memória de projeto: são notas de trabalho,
+# não fazem parte do produto. O que interessa a quem lê o repositório está no
+# README e em docs/decisoes.md.
+INVESTIGACAO/
+SESSION_LOG.md
+PROJECT_CONTEXT.md
+RESEARCH_LOG.md
+research_error.log
+
+# Grafo de código (gerado, pesado, regenerável com `graphify update .`)
+graphify-out/
+
+# Saída de testes
+test-results/
+playwright-report/
+coverage/
+backend/coverage/
+
+# Base de dados local de desenvolvimento.
+# O padrão sem pasta cobre a raiz também: um script corrido a partir da raiz
+# criava `./local.db`, que as regras `backend/*.db` não apanhavam — e assim
+# um ficheiro de base de dados foi parar ao repositório público.
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Rascunhos de design (exploração inicial; o design final está no código)
+design/
+
+# Salvaguarda do histórico antigo (apagar quando já não for precisa)
+.git-backup-*/
+
+.vercel
+.env*
