@@ -8,7 +8,14 @@ import { test, expect, devices } from '@playwright/test';
  * escolhido, e não havia forma de voltar. Estes testes fixam o padrão
  * lista-detalhe que qualquer app móvel usa.
  */
-test.use({ ...devices['iPhone 13'] });
+/* Telemóvel com motor Chromium, não `iPhone 13`.
+   O descritor do iPhone força o WebKit, que no Windows não arranca de forma
+   fiável — estes oito testes falhavam com `browser has been closed` na máquina
+   de quem programa, e só corriam no CI. O que se verifica aqui é layout e
+   toque (padrão lista-detalhe, botão de voltar, sem rolamento horizontal,
+   tamanho dos alvos), não o motor de renderização: um ecrã de 393px com toque
+   exercita o mesmo, e passa a correr em todo o lado. */
+test.use({ ...devices['Pixel 5'] });
 
 async function abrirClientes(page: import('@playwright/test').Page) {
   await page.goto('/');

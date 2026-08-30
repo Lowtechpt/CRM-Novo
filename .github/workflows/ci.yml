@@ -126,12 +126,10 @@ jobs:
           npm ci --prefix backend
           npm ci --prefix frontend
 
-      # Chromium para o grosso da suite; webkit porque `mobile.spec.ts` usa
-      # `devices['iPhone 13']`, e esse perfil arrasta o motor do Safari. Sem
-      # ele, esses testes falham com "Executable doesn't exist" — e localmente
-      # ninguém repara, porque quem instalou o Playwright tem os dois.
+      # Só chromium: a suite inteira corre nele, incluindo os testes de
+      # telemóvel, que usam um perfil Android em vez do iPhone.
       - name: Instalar os browsers
-        run: npx playwright install --with-deps chromium webkit
+        run: npx playwright install --with-deps chromium
 
       # Base de dados limpa e conta conhecida, criadas pelo próprio arranque.
       # O endereço é deliberadamente de fabrico (.test é um TLD reservado para

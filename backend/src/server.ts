@@ -307,16 +307,36 @@ export { app };
  *
  * Corre sempre, incluindo em serverless (Vercel): sem processo de arranque
  * próprio, é a primeira invocação fria que tem de garantir que o esquema
- * existe. Exportado para quem embrulha `app` numa função poder esperar por
- * isto antes de despachar o pedido — sem esperar, o primeiro pedido de cada
- * arranque frio corria contra uma base ainda a meio de migrar.
+ * existe. Quem embrulha `app` numa função espera por isto antes de despachar o
+ * pedido — sem esperar, o primeiro pedido de cada arranque frio corria contra
+ * uma base ainda a meio de migrar.
+ *
+ * Uma promessa guardada numa constante não serve aqui: se falhar — uma falha
+ * de rede momentânea contra a base remota chega — fica rejeitada para sempre, e
+ * todos os pedidos seguintes nessa instância herdam a rejeição. O utilizador
+ * via o site em baixo até a plataforma reciclar a instância.
+ *
+ * Guarda-se só o sucesso. Em caso de falha, o pedido seguinte volta a tentar.
  */
-export const pronta =
-  process.env.NODE_ENV === 'test' ? Promise.resolve() : runMigrations().then(initAuthSchema);
+let arranque: Promise<void> | null = null;
+
+export function garantirPronta(): Promise<void> {
+  if (process.env.NODE_ENV === 'test') return Promise.resolve();
+  if (!arranque) {
+    arranque = runMigrations()
+      .then(initAuthSchema)
+      .catch((err) => {
+        arranque = null;
+        log.error({ err }, 'arranque falhou; o próximo pedido volta a tentar');
+        throw err;
+      });
+  }
+  return arranque;
+}
 
 /** Só arranca o servidor com socket próprio fora de serverless (os testes importam `app`). */
 if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
-  pronta
+  garantirPronta()
     .then(() => {
       app.listen(PORT, () => {
         log.info({ port: PORT, origins: ORIGINS }, 'servidor a ouvir');
