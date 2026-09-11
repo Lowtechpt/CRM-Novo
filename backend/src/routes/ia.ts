@@ -82,6 +82,11 @@ export async function kiloChat(messages: Msg[]): Promise<string> {
         : err instanceof Error
           ? err
           : new Error(String(err));
+
+      /* Tempo esgotado não se repete: o mesmo pedido com o mesmo contexto não
+         fica mais rápido à segunda, e a repetição dobrava a espera antes de o
+         utilizador receber o erro. */
+      if (eTimeout) break;
     }
 
     if (tentativa === TENTATIVAS || !vaiPassar(status)) break;

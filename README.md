@@ -19,7 +19,7 @@ o que diz respeito a um cliente acessível sem trocar de módulo.
 Basta o botão **"Explorar em modo demonstração"** na página de entrada — não é
 preciso criar conta nem pedir credenciais a ninguém.
 
-Os dados são fictícios (20 clientes, 47 negócios, 5 comerciais) e a conta de
+Os dados são fictícios (2510 clientes, 5482 negócios, 5 comerciais) e a conta de
 visita não elimina registos nem reinicia a base, por isso a demonstração
 sobrevive à visita seguinte.
 
@@ -42,7 +42,7 @@ No primeiro arranque, as migrations correm sozinhas e é criada a conta de
 administração a partir do `.env.local`. Sem `ADMIN_PASSWORD` definida, é gerada
 uma password aleatória e impressa **uma única vez** no log.
 
-Para popular com dados de demonstração (20 clientes, 47 negócios, 5 comerciais):
+Para popular com dados de demonstração (20 clientes, 47 negócios, 5 comerciais — o seed base):
 
 ```bash
 curl -X POST http://localhost:3001/api/seed -H "Authorization: Bearer <token>"
@@ -78,8 +78,8 @@ npx playwright test    # 23 testes ponta a ponta em browser real
 
 | | |
 |---|---|
-| Testes backend | 149 (rotas com base de dados a sério, via supertest) |
-| Testes frontend | 88 (parser de comandos, camada offline, sessão, métricas, CSV) |
+| Testes backend | 168 (rotas com base de dados a sério, via supertest) |
+| Testes frontend | 108 (parser de comandos, camada offline, datas, sessão, métricas, CSV) |
 | Testes E2E | 23 (Playwright: fluxo comercial, login, mobile, temas) |
 | Cobertura backend | 85% linhas |
 
@@ -97,7 +97,7 @@ mesmo o que é verificado a cada alteração.
 | Frontend | React 19 · Vite 8 · TypeScript | PWA instalável, build rápido |
 | Navegação | React Router | Um URL por módulo e por cliente: partilhável, e o botão de voltar funciona |
 | Backend | Express · TypeScript | Superfície pequena, sem magia |
-| Base de dados | SQLite via `@libsql/client` | Ficheiro local em dev, Turso em produção — mesma API |
+| Base de dados | SQLite via `@libsql/client` | Ficheiro local ou Turso remota, com a mesma API |
 | Validação | Zod | Uma definição serve validação e tipos |
 | Testes | Vitest · Supertest · Playwright | Unidade, rota e ponta a ponta |
 

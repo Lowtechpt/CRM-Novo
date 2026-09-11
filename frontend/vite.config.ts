@@ -13,7 +13,12 @@ export default defineConfig({
         // navegação sem correspondência em cache — incluindo `/api/...`
         // aberto diretamente no browser, que passava a devolver a app em vez
         // do JSON do servidor.
-        navigateFallbackDenylist: [/^\/api\//],
+        //
+        // `/assets/` pela mesma razão: com carregamento a pedido, um pedaço
+        // que o service worker antigo não conhece recebia o index.html em vez
+        // do JavaScript, e o import falhava com "Failed to fetch dynamically
+        // imported module". Fora do fallback, dá 404 — que o `main.tsx` trata.
+        navigateFallbackDenylist: [/^\/api\//, /^\/assets\//],
       },
       manifest: {
         name: 'CRM Vendas',

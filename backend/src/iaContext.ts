@@ -178,13 +178,14 @@ export async function buildClientContext(clientId: string): Promise<string> {
 
 /* ══════════ Contexto de TODA a carteira ══════════ */
 
-/* Tetos do contexto global. O modelo aceita 262 144 tokens; sem limites, uma
-   carteira de 2500 clientes gerava 508 000 e a resposta era recusada. Os
-   totais exatos vão no resumo do topo, que é curto — o corte afeta o detalhe,
-   não os números. */
-const MAX_CLIENTES = 150;
-const MAX_NEGOCIOS = 120;
-const MAX_CONCORRENCIA = 60;
+/* Tetos do contexto global.
+   Não é só o limite do modelo (262 144 tokens) que os obriga: o tempo de
+   resposta cresce com o contexto, e uma pergunta analítica sobre 150 clientes
+   passava dos 45s de espera. Os totais exatos vão no resumo do topo, que é
+   curto — o corte afeta o detalhe, não os números. */
+const MAX_CLIENTES = 60;
+const MAX_NEGOCIOS = 50;
+const MAX_CONCORRENCIA = 25;
 
 export async function buildGlobalContext(): Promise<string> {
   const [clients, acts, deals, agenda, inter, comp, sp] = await Promise.all([
